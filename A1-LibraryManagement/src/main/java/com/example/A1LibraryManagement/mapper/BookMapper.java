@@ -8,6 +8,8 @@ import com.example.A1LibraryManagement.model.Book;
 import com.example.A1LibraryManagement.repository.AuthorRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 public class BookMapper {
     private final AuthorRepository authorRepository;
@@ -32,6 +34,7 @@ public class BookMapper {
 
     public BookDTODetails convertToDtoDetails(Book book) {
         AuthorDTO authorDTO = new AuthorDTO();
+        authorDTO.setID(book.getAuthor().getID());
         authorDTO.setName(book.getAuthor().getName());
         authorDTO.setSurname(book.getAuthor().getSurname());
         return BookDTODetails.builder()
@@ -67,6 +70,7 @@ public class BookMapper {
                 book.setAuthor(existingAuthorByName);
             } else {
                 Author newAuthor = new Author();
+                newAuthor.setID(bookDTO.getAuthorDTO().getID());
                 newAuthor.setName(bookDTO.getAuthorDTO().getName());
                 newAuthor.setSurname(bookDTO.getAuthorDTO().getSurname());
                 newAuthor = authorRepository.save(newAuthor);
@@ -88,15 +92,20 @@ public class BookMapper {
                     .orElse(null);
             Author existingAuthorByName = authorRepository.findByName(bookDTO.getAuthorDTO().getName())
                     .orElse(null);
+            Optional<Author> authorID = authorRepository.findById(bookDTO.getAuthorDTO().getID());
+            if (!authorID.isEmpty()){
+                book.setAuthor(authorID.get());
+            }
             if (existingAuthorBySurname != null) {
                 book.setAuthor(existingAuthorBySurname);
             } else if (existingAuthorByName != null) {
                 book.setAuthor(existingAuthorByName);
             } else {
                 Author newAuthor = new Author();
+                newAuthor.setID(bookDTO.getAuthorDTO().getID());
                 newAuthor.setName(bookDTO.getAuthorDTO().getName());
                 newAuthor.setSurname(bookDTO.getAuthorDTO().getSurname());
-                newAuthor = authorRepository.save(newAuthor);
+                //newAuthor = authorRepository.save(newAuthor);
                 book.setAuthor(newAuthor);
             }
         }
