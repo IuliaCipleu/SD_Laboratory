@@ -1,6 +1,5 @@
 package com.example.A1LibraryManagement.controller;
 
-import com.example.A1LibraryManagement.dto.AuthorDTO;
 import com.example.A1LibraryManagement.dto.BorrowerDTO;
 import com.example.A1LibraryManagement.mapper.BorrowerMapper;
 import com.example.A1LibraryManagement.model.Borrower;
@@ -23,6 +22,7 @@ public class BorrowerController {
     private BorrowerRepository borrowerRepository;
     @Autowired
     private BorrowerMapper borrowerMapper;
+//    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
     public List<Borrower> getAllUsers() {
@@ -58,4 +58,33 @@ public class BorrowerController {
             return ResponseEntity.badRequest().body("Error updating borrower: " + e.getMessage());
         }
     }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> login(@RequestParam String email, @RequestParam String password) {
+//        try {
+//            String token = borrowerService.login(email, password);
+//            return ResponseEntity.ok(token);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body("Error logging in: " + e.getMessage());
+//        }
+//    }
+//
+//    @PostMapping("/signup")
+//    public ResponseEntity<?> signUp(@RequestBody Borrower borrower) {
+//        try {
+//            String encodedPassword = passwordEncoder.encode(borrower.getPassword());
+//            borrower.setPassword(encodedPassword);
+//            // Create Borrower entity in the database
+//            BorrowerDTO createdBorrowerDTO = borrowerService.createBorrowerForSignIn(borrowerMapper.convertToDto(borrower));
+//
+//            // Return created BorrowerDTO in the response
+//            return ResponseEntity.ok(createdBorrowerDTO);
+//        } catch (ApiException apiException) {
+//            // If an ApiException occurs (e.g., user already exists), return a bad request response with the error message
+//            return ResponseEntity.badRequest().body(apiException.getMessage());
+//        } catch (Exception e) {
+//            // If any other exception occurs, return a bad request response with the error message
+//            return ResponseEntity.badRequest().body("Error creating user: " + e.getMessage());
+//        }
+//    }
+
 }

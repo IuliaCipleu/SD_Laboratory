@@ -13,5 +13,9 @@ public interface BorrowerRepository extends JpaRepository<Borrower, UUID> {
 
     Optional<Borrower> findById(UUID id);
 
+    //Optional<Borrower> findByEmailAndPassword(String email, String password);
+
     void deleteById(UUID id);
+
+    Optional<Borrower> findByEmail(String email);
 }

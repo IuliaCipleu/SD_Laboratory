@@ -11,6 +11,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Table(name = "book", indexes = {
+        @Index(name = "idx_book_id", columnList = "id")
+})
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Book {
     @Id

@@ -9,7 +9,13 @@ public enum ErrorEnum {
     INVALID_EMAIL("Invalid email"),
     INVALID_YEAR("Invalid year"),
     NEGATIVE_NUMBER("Negative number"),
-    INVALID_RETURN_DATE("Invalid return date");
+    INVALID_RETURN_DATE("Invalid return date"),
+    WRONG_PASSWORD("Wrong Password"),
+    INVALID_PASSWORD("Invalid password! Password must have at least 8 characters, must contain both lowercase and uppercase characters and must contain at least one special character (!@#$%^&*?"),
+    INVALID_NAME("Invalid name"),
+    USER_ALREADY_EXISTS("User already exist"),
+    USER_NOT_FOUND ("User not found"),
+    ACCESS_DENIED ("Access denied: user must login first!");
 
 
     private String message;

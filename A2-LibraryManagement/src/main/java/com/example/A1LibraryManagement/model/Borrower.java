@@ -28,6 +28,11 @@ public class Borrower {
     @OneToMany(mappedBy = "borrower", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonBackReference("borrower-borrow")
     private List<Borrow> borrows;
+/*    @NotNull
+    private String password;
+*//*    @Column(name = "jwt_token")
+    private String jwtToken;*/
+
 
     public List<Borrow> getBorrows() {
         return borrows;
@@ -76,4 +81,20 @@ public class Borrower {
     public void setEmail(String email) {
         this.email = email;
     }
+
+/*    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }*/
+
+/*    public String getJwtToken() {
+        return jwtToken;
+    }
+
+    public void setJwtToken(String jwtToken) {
+        this.jwtToken = jwtToken;
+    }*/
 }

@@ -1,18 +1,20 @@
 package com.example.A1LibraryManagement.dto;
 
+import com.example.A1LibraryManagement.model.Role;
 import lombok.*;
 
-import java.sql.Date;
+import java.util.Set;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BorrowerDTO {
-    //private UUID ID;
+public class UserDTODetails {
+    private String username;
     private String name;
     private String surname;
-    private Date dateOfBirth;
     private String email;
+    private String password;
+    private Set<Role> roles;
 }

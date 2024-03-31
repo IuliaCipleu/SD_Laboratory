@@ -9,10 +9,10 @@ import java.sql.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BorrowerDTO {
-    //private UUID ID;
+public class BorrowerDTODetails {
     private String name;
     private String surname;
     private Date dateOfBirth;
     private String email;
+    //private String password;
 }
