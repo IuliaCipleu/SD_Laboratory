@@ -81,6 +81,18 @@ public class UserService{
         userRepository.deleteById(id);
     }
 
+    public void deleteUserByEmail(String email) {
+        /*final User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException(ErrorEnum.USER_NOT_FOUND));*/
+        final User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ApiException(ErrorEnum.USER_NOT_FOUND));
+
+        // Remove all associated roles before deleting the user
+        user.getRoles().clear();
+        userRepository.save(user);
+        userRepository.deleteById(user.getID());
+    }
+
     public void updateUser(String email, UserDTODetails updatedUser) {
         final User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ApiException(ErrorEnum.USER_NOT_FOUND));

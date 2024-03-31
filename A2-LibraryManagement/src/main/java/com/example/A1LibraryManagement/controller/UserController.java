@@ -1,6 +1,7 @@
 
 package com.example.A1LibraryManagement.controller;
 
+import com.example.A1LibraryManagement.config.CheckAuthentication;
 import com.example.A1LibraryManagement.dto.UserDTO;
 import com.example.A1LibraryManagement.dto.UserDTODetails;
 import com.example.A1LibraryManagement.exception.ApiException;
@@ -41,7 +42,8 @@ public class UserController {
 
     @GetMapping("/")
     public List<UserDTO> getAll() {
-        checkAuthentication();
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         List<UserDTO> users = userService.getAll();
        /* users.forEach(user -> {
             System.out.println("User: " + user.getUsername());
@@ -54,11 +56,12 @@ public class UserController {
     @GetMapping("/admins")
     //@PreAuthorize("hasRole('SIMPLE_USER') or hasRole('ADMIN')")
     public List<UserDTO> getAllAdmins(){
-        checkAuthentication();
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         return userService.getAllAdmins();
     }
 
-    private void checkAuthentication() {
+/*    private void checkAuthentication() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
         boolean hasPermission = authorities.stream()
@@ -66,37 +69,43 @@ public class UserController {
         if (!hasPermission) {
             throw new ApiException(ErrorEnum.ACCESS_DENIED);
         }
-    }
+    }*/
 
     @GetMapping("/simple")
     //@PreAuthorize("hasRole('SIMPLE_USER') or hasRole('ADMIN')")
     public List<UserDTO> getAllSimpleUsers(HttpServletRequest request){
         /*String token = request.getHeader("Authorization");
         System.out.println("Token: " + token);*/
-        checkAuthentication();
+        //checkAuthentication();
+        CheckAuthentication checkAuthentication1 = new CheckAuthentication();
+        checkAuthentication1.checkAuthenticationAll();
         return userService.getAllSimpleUsers();
     }
 
     @GetMapping("/email/{email}")
     //@PreAuthorize("hasRole('SIMPLE_USER') or hasRole('ADMIN')")
     public ResponseEntity<UserDTO> getUserByEmail(@PathVariable String email){
-        checkAuthentication();
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     @PostMapping("/create")
     //@PreAuthorize("hasRole('SIMPLE_USER') or hasRole('ADMIN')")
     public UserDTO createUser(@RequestBody UserDTODetails userDTODetails){
-        checkAuthentication();
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationRole("ADMIN");
         return userService.createUser(userDTODetails);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{email}")
     //@PreAuthorize("hasRole('SIMPLE_USER') or hasRole('ADMIN')")
-    public ResponseEntity<String> deleteUser(@PathVariable UUID id){
-        checkAuthentication();
+    public ResponseEntity<String> deleteUser(@PathVariable String email){
+        //checkAuthentication();
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationRole("ADMIN");
         try{
-            userService.deleteUserById(id);
+            userService.deleteUserByEmail(email);
             return ResponseEntity.ok("User deleted successfully!");
         } catch (Exception e){
             return ResponseEntity.badRequest().body("Error deleting user: " + e.getMessage());
@@ -106,7 +115,8 @@ public class UserController {
     @PutMapping("/{email}")
     //@PreAuthorize("hasRole('SIMPLE_USER') or hasRole('ADMIN')")
     public ResponseEntity<String> updateUser(@PathVariable String email, @RequestBody UserDTODetails updatedUser){
-        checkAuthentication();
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationRole("ADMIN");
         try{
             userService.updateUser(email, updatedUser);
             return ResponseEntity.ok("User updated successfully!");

@@ -1,5 +1,6 @@
 package com.example.A1LibraryManagement.controller;
 
+import com.example.A1LibraryManagement.config.CheckAuthentication;
 import com.example.A1LibraryManagement.dto.AuthorDTO;
 import com.example.A1LibraryManagement.dto.BookDTO;
 import com.example.A1LibraryManagement.dto.BookDTODetails;
@@ -25,31 +26,43 @@ public class BookController {
 
     @GetMapping("/")
     public List<Book> getAllBooks() {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         return bookRepository.findAll();
     }
 
     @GetMapping("/ID/{id}")
     public ResponseEntity<BookDTO> getBookByID(@PathVariable UUID id) {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         return ResponseEntity.ok(bookService.getBookById(id));
     }
 
     @GetMapping("/ISBN/{isbn}")
     public ResponseEntity<BookDTODetails> getBookByISBN(@PathVariable String isbn) {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         return ResponseEntity.ok(bookService.getBookByISBN(isbn));
     }
 
     @GetMapping("/title/{title}")
     public ResponseEntity<BookDTO> getBookByTitle(@PathVariable String title) {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
         return ResponseEntity.ok(bookService.getBookByTitle(title));
     }
 
     @PostMapping("/")
     public BookDTODetails createBook(@RequestBody BookDTODetails bookDTODetails) {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationRole("ADMIN");
         return bookService.createBook(bookDTODetails);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteBook(@PathVariable UUID id) {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationRole("ADMIN");
         try {
             bookService.deleteBookByID(id);
             return ResponseEntity.ok("Book deleted successfully");
@@ -60,6 +73,8 @@ public class BookController {
 
     @PutMapping("/{id}")
     public ResponseEntity<String> updateBook(@PathVariable UUID id, @RequestBody BookDTODetails updatedBook) {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationRole("ADMIN");
         try {
             bookService.updateBook(id, updatedBook);
             return ResponseEntity.ok("Book updated successfully");

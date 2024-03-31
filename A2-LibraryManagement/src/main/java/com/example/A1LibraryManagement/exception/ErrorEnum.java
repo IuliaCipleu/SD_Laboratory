@@ -15,7 +15,8 @@ public enum ErrorEnum {
     INVALID_NAME("Invalid name"),
     USER_ALREADY_EXISTS("User already exist"),
     USER_NOT_FOUND ("User not found"),
-    ACCESS_DENIED ("Access denied: user must login first!");
+    ACCESS_DENIED ("Access denied: user must login first!"),
+    ROLE_DENIED("Role denied: user doesn't have the necessary privilege!");
 
 
     private String message;
