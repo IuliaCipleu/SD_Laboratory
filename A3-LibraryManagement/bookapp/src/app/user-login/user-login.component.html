@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>Login</h2>
+  <div style="display:flex; justify-content: center;">
+  <form style="width: 88%;" (ngSubmit)="login()">
+    <div>
+      <label for="username">Username or Email:</label>
+      <input type="text" id="username" name="username" [(ngModel)]="usernameOrEmail">
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password">
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>
+  <hr>
+
+  <h2>Register</h2>
+  <div style="display:flex; justify-content: center;">
+  <form style="width: 88%;" (ngSubmit)="register()">
+    <div>
+      <label for="registerName">Name:</label>
+      <input type="text" id="registerName" name="registerName" [(ngModel)]="registerName">
+    </div>
+    <div>
+      <label for="registerSurname">Surname:</label>
+      <input type="text" id="registerSurname" name="registerSurname" [(ngModel)]="registerSurname">
+    </div>
+    <div>
+      <label for="registerDateOfBirth">Date Of Birth:</label>
+      <input type="date" id="registerDateOfBirth" name="registerDateOfBirth" [(ngModel)]="registerDateOfBirth">
+    </div>
+    <div>
+      <label>Register as:</label><br>
+      <input type="radio" id="admin" name="registerRole" [(ngModel)]="registerRole" value="admin">
+      <label for="admin">Admin</label><br>
+      <input type="radio" id="simpleUser" name="registerRole" [(ngModel)]="registerRole" value="simpleUser">
+      <label for="simpleUser">Simple User</label>
+    </div>
+    <div>
+      <label for="registerUsername">Username:</label>
+      <input type="text" id="registerUsername" name="registerUsername" [(ngModel)]="registerUsername">
+    </div>
+    <div>
+      <label for="registerEmail">Email:</label>
+      <input type="email" id="registerEmail" name="registerEmail" [(ngModel)]="registerEmail">
+    </div>
+    <div>
+      <label for="registerPassword">Password:</label>
+      <input type="password" id="registerPassword" name="registerPassword" [(ngModel)]="registerPassword">
+    </div>
+    <button type="submit">Register</button>
+  </form>
+</div>
+  <button (click)="logout()">Logout</button>
+</div>

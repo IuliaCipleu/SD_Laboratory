@@ -1,0 +1,133 @@
+<div class="container">
+  <div style="display:flex; justify-content: center;">
+    <form style="width: 88%;" (ngSubmit)="searchBooks()">
+    <label for="searchCategory">Search by:</label>
+    <select id="searchCategory" name="searchCategory" [(ngModel)]="searchCategory">
+      <option value="isbn">ISBN</option>
+      <option value="title">Title</option>
+    </select>
+    <input type="text" id="searchQuery" name="searchQuery" [(ngModel)]="searchQuery">
+    <button type="submit">Search</button>
+    <button type="button" (click)="resetSearch()">Reset</button>
+  </form>
+</div>
+  <!-- Create Book Form -->
+  <div style="margin: 0 auto; width: 95%;">
+  <hr>
+  <div style="display:flex; justify-content: center;">
+  <form style="width: 45%; margin-right: 20px;" (ngSubmit)="createBook()">
+    <h2>Create Book</h2>
+    <div class="form-group">
+      <label for="createTitle">Title:</label>
+      <input type="text" id="createTitle" name="createTitle" [(ngModel)]="createTitle">
+    
+      <label for="createAuthorName">Author Name:</label>
+      <input type="text" id="createAuthorName" name="createAuthorName" [(ngModel)]="createAuthorName">
+    </div>
+    <label for="createAuthorSurname">Author Surname:</label>
+    <input type="text" id="createAuthorSurname" name="createAuthorSurname" [(ngModel)]="createAuthorSurname">
+  
+    <label for="createYear">Year:</label>
+    <input type="text" id="createYear" name="createYear" [(ngModel)]="createYear">
+  
+    <label for="createPublishingHouse">Publishing House:</label>
+    <input type="text" id="createPublishingHouse" name="createPublishingHouse" [(ngModel)]="createPublishingHouse">
+  
+    <label for="createIsbn">ISBN:</label>
+    <input type="text" id="createIsbn" name="createIsbn" [(ngModel)]="createIsbn">
+  
+    <label for="createCopiesInLibrary">Copies in Library:</label>
+    <input type="text" id="createCopiesInLibrary" name="createCopiesInLibrary" [(ngModel)]="createCopiesInLibrary">
+  
+    <label for="createCopiesBorrowed">Copies Borrowed:</label>
+    <input type="text" id="createCopiesBorrowed" name="createCopiesBorrowed" [(ngModel)]="createCopiesBorrowed">
+  
+    <label for="createGenre">Genre:</label>
+    <select id="createGenre" name="createGenre" [(ngModel)]="createGenre">
+      <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+    </select>
+  
+    <button type="submit">Create</button>
+  </form>
+
+  <!-- Update Book Form -->
+  <hr>
+  <form style="width: 45%;" (ngSubmit)="updateBook()">
+    <h2>Update Book</h2>
+    <label for="updateId">Book ID:</label>
+  <input type="text" id="updateId" name="updateId" [(ngModel)]="updateId">
+
+  <label for="updateTitle">Title:</label>
+  <input type="text" id="updateTitle" name="updateTitle" [(ngModel)]="updateTitle">
+
+  <label for="updateAuthorName">Author Name:</label>
+  <input type="text" id="updateAuthorName" name="updateAuthorName" [(ngModel)]="updateAuthor.name">
+
+  <label for="updateAuthorSurname">Author Surname:</label>
+  <input type="text" id="updateAuthorSurname" name="updateAuthorSurname" [(ngModel)]="updateAuthor.surname">
+  
+  <label for="updateYear">Year:</label>
+  <input type="text" id="updateYear" name="updateYear" [(ngModel)]="updateYear">
+
+  <label for="updatePublishingHouse">Publishing House:</label>
+  <input type="text" id="updatePublishingHouse" name="updatePublishingHouse" [(ngModel)]="updatePublishingHouse">
+
+  <label for="updateIsbn">ISBN:</label>
+  <input type="text" id="updateIsbn" name="updateIsbn" [(ngModel)]="updateIsbn">
+
+  <label for="updateCopiesInLibrary">Copies in Library:</label>
+  <input type="text" id="updateCopiesInLibrary" name="updateCopiesInLibrary" [(ngModel)]="updateCopiesInLibrary">
+
+  <label for="updateCopiesBorrowed">Copies Borrowed:</label>
+  <input type="text" id="updateCopiesBorrowed" name="updateCopiesBorrowed" [(ngModel)]="updateCopiesBorrowed">
+
+  <label for="updateGenre">Genre:</label>
+  <select id="updateGenre" name="updateGenre" [(ngModel)]="updateGenre">
+    <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+  </select>
+
+  <button style="margin-top: 10px;" type="submit">Update</button>
+  </form>
+</div>
+</div>
+<hr>
+  <!-- Delete Book Form -->
+  <div style="display:flex; justify-content: center;">
+    <form style="width: 88%;" (ngSubmit)="deleteBook()">
+    <h2>Delete Book</h2>
+    <label for="deleteId">Book ID:</label>
+    <input type="text" id="deleteId" name="deleteId" [(ngModel)]="deleteId">
+    <button type="submit">Delete</button>
+  </form>
+</div>
+<div class="table-wrapper">
+  <table class="book-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Year</th>
+        <th>Publishing House</th>
+        <th>Genre</th>
+        <th>ISBN</th>
+        <th>Number of copies in Library</th>
+        <th>Number of copies borrowed</th>
+        <th>ID</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let book of books">
+        <td>{{ book.title }}</td>
+        <td>{{ book.author.name }} {{ book.author.surname }}</td>
+        <td>{{ book.year }}</td>
+        <td>{{ book.publishingHouse }}</td>
+        <td>{{ book.genre}}</td>
+        <td>{{ book.isbn }}</td>
+        <td>{{ book.copiesInLibrary }}</td>
+        <td>{{ book.copiesBorrowed }}</td>
+        <td>{{ book.id }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
