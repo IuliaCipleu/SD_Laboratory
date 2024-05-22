@@ -1,0 +1,67 @@
+<div class="container">
+  <div style="display:flex; justify-content: center;">
+    <form style="width: 88%;" (ngSubmit)="searchAuthors()">
+      <label for="searchCategory">Search by:</label>
+      <select id="searchCategory" name="searchCategory" [(ngModel)]="searchCategory">
+        <option value="id">ID</option>
+        <option value="name">Name</option>
+        <option value="surname">Surname</option>
+      </select>
+      <input type="text" id="searchQuery" name="searchQuery" [(ngModel)]="searchQuery">
+      <button type="submit">Search</button>
+      <button type="button" (click)="resetSearch()">Reset</button>
+    </form>
+  </div>
+  
+  <!-- Create Author Form -->
+  <div style="margin: 0 auto; width: 95%;">
+    <hr>
+    <div style="display:flex; justify-content: center;">
+      <form style="width: 45%; margin-right: 20px;" (ngSubmit)="createAuthor()">
+        <h2>Create Author</h2>
+        <label for="createName">Name:</label>
+        <input type="text" id="createName" name="createName" [(ngModel)]="createName">
+        <label for="createSurname">Surname:</label>
+        <input type="text" id="createSurname" name="createSurname" [(ngModel)]="createSurname">
+        <button type="submit">Create</button>
+      </form>
+
+      <!-- Update Author Form -->
+      <hr>
+      <form style="width: 45%;" (ngSubmit)="updateAuthor()">
+        <h2>Update Author</h2>
+        <input type="hidden" id="updateId" name="updateId" [(ngModel)]="updateId">
+        <label for="updateName">Name:</label>
+        <input type="text" id="updateName" name="updateName" [(ngModel)]="updateName">
+        <label for="updateSurname">Surname:</label>
+        <input type="text" id="updateSurname" name="updateSurname" [(ngModel)]="updateSurname">
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  </div>
+  
+  <hr>
+
+  <!-- Authors Table -->
+  <div class="table-wrapper">
+    <table class="book-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Surname</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let author of authors">
+          <td>{{ author.name }}</td>
+          <td>{{ author.surname }}</td>
+          <td>
+            <button (click)="editAuthor(author)">Update</button>
+            <button (click)="deleteAuthor(author.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

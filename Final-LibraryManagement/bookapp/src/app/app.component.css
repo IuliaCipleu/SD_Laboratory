@@ -1,0 +1,44 @@
+.container {
+  text-align: center; /* Center align content within the container */
+  background-image: url('C:/Users/Cipleu/Documents/IULIA/SCOALA/facultate/Year 3 Semester 2/SD/Lab/A1/SD_Laboratory/A3-LibraryManagement/images/front-view-of-elegant-library-with-stairs-photo.jpg');
+  background-size: cover; /* Cover the entire container with the background image */
+  background-position: center; /* Center the background image */
+  background-repeat: no-repeat; /* Prevent the background image from repeating */
+}
+
+.content {
+  background-color: #F8DDA4; /* Add a semi-transparent white background to the content area */
+  padding: 20px; /* Add padding to the content area */
+}
+
+h1 {
+  margin-bottom: 20px; /* Add some bottom margin for spacing */
+  color: white;
+}
+
+.menu {
+  display: flex;
+  justify-content: center; /* Center align menu items */
+  align-items: center;
+  background-color: #F8DDA4; /* Background color of the menu */
+  padding: 10px; /* Add padding for spacing */
+}
+
+.menu-item {
+  margin-right: 20px; /* Add margin between menu items */
+  
+}
+
+.menu-item a {
+  text-decoration: none; /* Remove underline from links */
+  font-weight: bold; /* Bold font */
+  color: #813405;
+}
+
+.menu-item a:hover {
+  color: #555; /* Change color on hover */
+}
+
+body {
+  background-color: #F8DDA4; /* Set the background color for the rest of the page */
+}

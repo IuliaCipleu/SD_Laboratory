@@ -1,0 +1,128 @@
+.book-table {
+    width: 90%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    box-sizing: border-box;
+    margin-left: auto; /* Center align the table */
+    margin-right: auto;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    text-align: center; /* Center align content */
+  }
+  
+  .book-table th,
+  .book-table td {
+    border: 1px solid #B26E63;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .book-table th {
+    background-color: #EED7C5;
+  }
+  
+  .book-table tr:nth-child(even) {
+    background-color: #C89F9C;
+  }
+
+  .book-table tr:nth-child(odd) {
+    background-color: #C89F9C;
+  }
+  
+  .book-table tr:hover {
+    background-color: #B26E63;
+  }
+  
+  .container {
+    text-align: center; /* Center align content within the container */
+    background-color: #F8DDA4; /* Change background color */
+    padding: 20px; /* Add padding */
+  }
+
+  hr {
+    border: none; /* Remove border */
+    border-top: 1px solid #ccc; /* Add top border */
+    margin: 20px 0; /* Add margin */
+  }
+  
+  /* Style for input fields */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  input[type="radio"],
+  select {
+    width: calc(85% - 10px); /* Set width to 50% minus margin */
+    padding: 10px; /* Add padding */
+    margin-bottom: 10px; /* Add margin */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    display: inline-block; /* Display elements inline */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    text-align: center;
+  }
+  
+  /* Style for labels */
+  label {
+    display: block; /* Make labels block level */
+    margin-bottom: 5px; /* Add margin to labels */
+  }
+  
+  /* Clearfix for forms */
+  .form-group::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  button {
+    margin-top: 10px; /* Add margin to buttons */
+  }
+  
+  button, input[type="submit"] {
+    padding: 10px 20px; /* Add padding to buttons */
+    background-color: #813405; /* Change button background color */
+    color: #fff; /* Change button text color */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    cursor: pointer; /* Add cursor pointer */
+  }
+  
+  button:hover, input[type="submit"]:hover {
+    background-color: #F9A03F; /* Change button background color on hover */
+  }
+
+  form {
+    background-color: #F4F9E9; /* Change form background color */
+    padding: 15px; /* Add padding */
+    border-radius: 8px; /* Add border radius */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+    color: #D45113;
+  }
+
+  /* Style for select boxes */
+select {
+    width: calc(30% - 10px); /* Set width to 50% minus margin */
+    padding: 10px; /* Add padding */
+    margin-bottom: 10px; /* Add margin */
+    border: 1px solid #ccc; /* Add border */
+    border-radius: 5px; /* Add border radius */
+    display: inline-block; /* Display elements inline */
+    box-sizing: border-box; /* Include padding and border in width calculation */
+    background-color: #F4F9E9; /* Background color */
+    color: #333; /* Text color */
+  }
+  
+  /* Style for select options */
+  select option {
+    background-color: #fff; /* Background color */
+    color: #D45113; /* Text color */
+  }
+  
+  /* Style for select on hover */
+  select:hover {
+    border-color: #bc6c25; /* Border color on hover */
+  }
+  
