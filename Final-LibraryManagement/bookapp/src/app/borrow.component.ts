@@ -24,15 +24,13 @@ export class BorrowComponent implements OnInit {
   searchQuery: string = '';
   createBookISBN: string = '';
   createBorrowerId: string = '';
-  createBorrowerEmail: string = '';
   createBorrowDate: Date = new Date();
   createReturnedDate: Date | null = null;
   updateBorrowId: string = '';
   updateBookISBN: string = '';
   updateBorrowerId: string = '';
-  updateBorrowerEmail: string = '';
   updateBorrowDate: Date = new Date();
-  updateReturnedDate: Date | null = null;
+  updateReturnedDate: Date | null = null;;
   deleteId: string = '';
   borrowId: string = '';
 
@@ -79,14 +77,14 @@ export class BorrowComponent implements OnInit {
   }
 
   createBorrow() {
-    this.userService.getBorrowerByEmail(this.createBorrowerEmail).subscribe(
+    this.userService.getBorrowerByID(this.createBorrowerId).subscribe(
       (borrower: Borrower) => {
         this.userService.getBookByISBN(this.createBookISBN).subscribe(
           (book: Book) => {
             const newBorrow: Borrow = {
               id: this.borrowId,
               bookISBN: this.createBookISBN, // Assign the fetched book
-              borrowerID: borrower.id,
+              borrowerID: this.createBorrowerId,
               borrowDate: this.createBorrowDate,
               returnDate: this.createReturnedDate
             };
@@ -119,27 +117,13 @@ export class BorrowComponent implements OnInit {
     );
   }
 
-  editBorrow(borrow: Borrow) {
-    this.updateBookISBN = borrow.bookISBN;
+  editBorrow(borrow: Borrow){
     this.updateBorrowDate = borrow.borrowDate;
     this.updateReturnedDate = borrow.returnDate;
-  
-    // Fetch borrower details by email
-    this.userService.getBorrowerByEmail(this.updateBorrowerEmail).subscribe(
-      (newBorrower: Borrower) => {
-        // Update the borrower's email
-        this.updateBorrowerEmail = newBorrower.email;
-      },
-      (error: any) => {
-        console.error('Error updating Borrow:', error);
-        // Handle error
-      }
-    );
   }
-  
 
   updateBorrow() {
-    this.userService.getBorrowerByEmail(this.updateBorrowerEmail).subscribe(
+    this.userService.getBorrowerByID(this.updateBorrowerId).subscribe(
       (borrower: Borrower) => {
         this.userService.getBorrowByID(this.updateBorrowId).subscribe(
           (borrow: Borrow) => {
@@ -148,7 +132,7 @@ export class BorrowComponent implements OnInit {
                 const updatedBorrow: Borrow = {
                   id: this.updateBorrowId,
                   bookISBN: this.updateBookISBN, // Assign the fetched book
-                  borrowerID: borrower.email,
+                  borrowerID: this.updateBorrowerId,
                   borrowDate: this.updateBorrowDate,
                   returnDate: this.updateReturnedDate
                 };
@@ -183,8 +167,8 @@ export class BorrowComponent implements OnInit {
     );
   }
 
-  deleteBorrow(borrowID: string) {
-    this.userService.deleteBorrow(borrowID).subscribe(
+  deleteBorrow(borrowId: string) {
+    this.userService.deleteBorrow(borrowId).subscribe(
       () => {
         console.log('Borrow deleted');
         this.getBorrows(); // Refresh book list

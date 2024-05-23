@@ -209,55 +209,37 @@ export class UserService {
       })
     );
   }
+
+  private createAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    if (!token) {
+      throw new Error('Please log in to perform this action.');
+    }
+    return new HttpHeaders().set('Authorization', 'Bearer ' + token);
+  }
   
   public getBorrows(): Observable<Borrow[]> {
-    if (!this.isAuthenticated()) {
-      console.log('Please log in to search for borrows.');
-      return EMPTY; // Return an empty observable
-    }
-    
-    const token = this.getToken();
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const headers = this.createAuthHeaders();
     return this.http.get<Borrow[]>(`${this.apiServerUrl}/borrows/`, { headers });
   }
 
-  public getBorrowByID(id: string): Observable<any> {
-    const token = this.getToken();
-    if (!token) {
-      console.log('Please log in to search for borrows.');
-      throw new Error('Please log in to search for borrows.'); 
-    }
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.get<any>(`${this.apiServerUrl}/borrows/ID/${id}`, { headers });
+  public getBorrowByID(id: string): Observable<Borrow> {
+    const headers = this.createAuthHeaders();
+    return this.http.get<Borrow>(`${this.apiServerUrl}/borrows/ID/${id}`, { headers });
   }
 
   public addBorrow(borrow: Borrow): Observable<Borrow> {
-    const token = this.getToken();
-    if (!token) {
-      console.log('Please log in to create borrow.');
-      throw new Error('Please log in to create borrow.'); 
-    }
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const headers = this.createAuthHeaders();
     return this.http.post<Borrow>(`${this.apiServerUrl}/borrows/`, borrow, { headers });
   }
 
   public deleteBorrow(borrowId: string): Observable<void> {
-    const token = this.getToken();
-    if (!token) {
-      console.log('Please log in to delete borrow.');
-      throw new Error('Please log in to delete borrow.'); 
-    }
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const headers = this.createAuthHeaders();
     return this.http.delete<void>(`${this.apiServerUrl}/borrows/${borrowId}`, { headers });
   }
 
   public updateBorrow(borrow: Borrow): Observable<Borrow> {
-    const token = this.getToken();
-    if (!token) {
-      console.log('Please log in to update borrow.');
-      throw new Error('Please log in to update borrow.'); 
-    }
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const headers = this.createAuthHeaders();
     return this.http.put<Borrow>(`${this.apiServerUrl}/borrows/${borrow.id}`, borrow, { headers });
   }
 
