@@ -15,7 +15,7 @@ export class AuthorComponent implements OnInit {
   title = 'bookapp';
   public authors: Author[] = [];
   books: Book[] = [];
-  searchCategory: string = 'id'; // Default search category
+  searchCategory: string = 'surname'; // Default search category
   searchQuery: string = '';
   createName: string = '';
   createSurname: string = '';
@@ -54,9 +54,7 @@ export class AuthorComponent implements OnInit {
       return;
     }
 
-    if (this.searchCategory === 'id') {
-      this.getAuthorByID();
-    } else if (this.searchCategory === 'name') {
+    if (this.searchCategory === 'name') {
       this.getAuthorByName();
     } else if (this.searchCategory === 'surname'){
         this.getAuthorBySurname();

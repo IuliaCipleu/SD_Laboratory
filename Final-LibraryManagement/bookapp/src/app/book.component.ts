@@ -169,6 +169,7 @@ export class BookComponent implements OnInit {
       isbn: this.createIsbn,
       title: this.createTitle,
       year: parseInt(this.createYear),
+      author: author,
       authorDTO: author,
       publishingHouse: this.createPublishingHouse,
       copiesInLibrary: parseInt(this.createCopiesInLibrary),
@@ -194,7 +195,7 @@ export class BookComponent implements OnInit {
   editBook(book: Book) {
     this.updateId = book.id;
     this.updateTitle = book.title;
-    this.updateAuthor = { ...book.authorDTO }; // Copy author details
+    this.updateAuthor = { ...book.author }; // Copy author details
     this.updateYear = book.year.toString();
     this.updatePublishingHouse = book.publishingHouse;
     this.updateIsbn = book.isbn;
@@ -266,6 +267,7 @@ export class BookComponent implements OnInit {
     const updatedBook: Book = {
       id: this.updateId,
       title: this.updateTitle,
+      author: author,
       authorDTO: author,
       year: parseInt(this.updateYear),
       publishingHouse: this.updatePublishingHouse,

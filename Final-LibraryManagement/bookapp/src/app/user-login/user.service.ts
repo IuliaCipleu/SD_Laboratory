@@ -228,6 +228,16 @@ export class UserService {
     return this.http.get<Borrow>(`${this.apiServerUrl}/borrows/ID/${id}`, { headers });
   }
 
+  public getBorrowsReturned(): Observable<Borrow[]> {
+    const headers = this.createAuthHeaders();
+    return this.http.get<Borrow[]>(`${this.apiServerUrl}/borrows/nonreturned/`, { headers });
+  }
+
+  public getBorrowsNonReturned(): Observable<Borrow[]> {
+    const headers = this.createAuthHeaders();
+    return this.http.get<Borrow[]>(`${this.apiServerUrl}/borrows/returned/`, { headers });
+  }
+
   public addBorrow(borrow: Borrow): Observable<Borrow> {
     const headers = this.createAuthHeaders();
     return this.http.post<Borrow>(`${this.apiServerUrl}/borrows/`, borrow, { headers });

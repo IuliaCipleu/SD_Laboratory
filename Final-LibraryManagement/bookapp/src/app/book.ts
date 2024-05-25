@@ -5,6 +5,7 @@ export interface Book{
   id: string;
   isbn: string;
   title: string;
+  author: Author;
   authorDTO: Author;
   year: number;
   publishingHouse: string;

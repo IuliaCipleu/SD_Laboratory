@@ -69,6 +69,19 @@ export class BorrowerComponent implements OnInit {
     );
   }
 
+  public getBorrowerByEmail(): void {
+    this.userService.getBorrowerByEmail(this.searchQuery).subscribe(
+      (response: any) => {
+        this.borrowers = [response];
+        console.log('Borrower:', response);
+      },
+      (error: any) => {
+        console.error('Error:', error);
+        // Handle error
+      }
+    );
+  }
+
   resetSearch() {
     this.searchQuery = ''; 
     this.getBorrowers(); 

@@ -12,7 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -82,5 +84,19 @@ public class BorrowService {
         }
 
         borrowRepository.save(borrow);
+    }
+
+    public List<BorrowDTO> getReturnedBorrows() {
+        List<Borrow> returnedBorrows = borrowRepository.findByReturnDateIsNotNull();
+        return returnedBorrows.stream()
+                .map(borrowMapper::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<BorrowDTO> getNonReturnedBorrows() {
+        List<Borrow> nonReturnedBorrows = borrowRepository.findByReturnDateIsNull();
+        return nonReturnedBorrows.stream()
+                .map(borrowMapper::convertToDto)
+                .collect(Collectors.toList());
     }
 }

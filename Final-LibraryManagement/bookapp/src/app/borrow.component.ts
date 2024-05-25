@@ -20,15 +20,17 @@ export class BorrowComponent implements OnInit {
   title = 'bookapp';
   public borrows: Borrow[] = [];
   books: Book[] = [];
-  searchCategory: string = 'id'; // Default search category
+  searchCategory: string = 'returned'; // Default search category
   searchQuery: string = '';
   createBookISBN: string = '';
   createBorrowerId: string = '';
+  createBorrowerEmail: string = '';
   createBorrowDate: Date = new Date();
   createReturnedDate: Date | null = null;
   updateBorrowId: string = '';
   updateBookISBN: string = '';
   updateBorrowerId: string = '';
+  updateBorrowerEmail: string = '';
   updateBorrowDate: Date = new Date();
   updateReturnedDate: Date | null = null;;
   deleteId: string = '';
@@ -57,6 +59,37 @@ export class BorrowComponent implements OnInit {
     }
   }
 
+  public getBorrowsReturned(): void {
+    if (this.userService.isAuthenticated()) {
+      this.userService.getBorrowsReturned().subscribe(
+        (response: Borrow[]) => {
+          this.borrows = response;
+          console.log(this.borrows);
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    } else {
+      console.log('Please log in to search for Borrows.');
+    }
+  }
+
+  public getBorrowsNonReturned(): void {
+    if (this.userService.isAuthenticated()) {
+      this.userService.getBorrowsNonReturned().subscribe(
+        (response: Borrow[]) => {
+          this.borrows = response;
+          console.log(this.borrows);
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    } else {
+      console.log('Please log in to search for Borrows.');
+    }
+  }
 
   public getBorrowByID(): void {
     this.userService.getBorrowByID(this.searchQuery).subscribe(
@@ -71,20 +104,32 @@ export class BorrowComponent implements OnInit {
     );
   }
 
+  searchBorrows() {
+    if (this.searchCategory === 'returned') {
+      this.getBorrowsReturned();
+    } else if (this.searchCategory === 'nonreturned') {
+      this.getBorrowsNonReturned();
+    }
+  }
+
   resetSearch() {
     this.searchQuery = ''; 
     this.getBorrows(); 
   }
 
   createBorrow() {
-    this.userService.getBorrowerByID(this.createBorrowerId).subscribe(
+    this.userService.getBorrowerByEmail(this.createBorrowerEmail).subscribe(
       (borrower: Borrower) => {
         this.userService.getBookByISBN(this.createBookISBN).subscribe(
           (book: Book) => {
             const newBorrow: Borrow = {
               id: this.borrowId,
-              bookISBN: this.createBookISBN, // Assign the fetched book
-              borrowerID: this.createBorrowerId,
+              book: book, // Assign the fetched book
+              borrower: borrower,
+              bookDTO: book, // Assign the fetched book
+              borrowerDTO: borrower,
+              bookISBN: book.isbn,
+              borrowerID: borrower.id,
               borrowDate: this.createBorrowDate,
               returnDate: this.createReturnedDate
             };
@@ -123,7 +168,7 @@ export class BorrowComponent implements OnInit {
   }
 
   updateBorrow() {
-    this.userService.getBorrowerByID(this.updateBorrowerId).subscribe(
+    this.userService.getBorrowerByEmail(this.updateBorrowerEmail).subscribe(
       (borrower: Borrower) => {
         this.userService.getBorrowByID(this.updateBorrowId).subscribe(
           (borrow: Borrow) => {
@@ -131,8 +176,12 @@ export class BorrowComponent implements OnInit {
               (book: Book) => {
                 const updatedBorrow: Borrow = {
                   id: this.updateBorrowId,
-                  bookISBN: this.updateBookISBN, // Assign the fetched book
-                  borrowerID: this.updateBorrowerId,
+                  book: book, // Assign the fetched book
+                  borrower: borrower,
+                  bookDTO: book, // Assign the fetched book
+                  borrowerDTO: borrower,
+                  bookISBN: book.isbn,
+                  borrowerID: borrower.id,
                   borrowDate: this.updateBorrowDate,
                   returnDate: this.updateReturnedDate
                 };

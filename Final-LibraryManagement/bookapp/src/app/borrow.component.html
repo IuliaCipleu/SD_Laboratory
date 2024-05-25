@@ -1,12 +1,15 @@
 <div class="container">
-  <div style="display:flex; justify-content: center;">
-    <form style="width: 88%;" (ngSubmit)="getBorrowByID()">
-      <label >Search by ID:</label>
-      <input type="text" id="searchQuery" name="searchQuery" [(ngModel)]="searchQuery">
+  <!-- <div style="display:flex; justify-content: center;">
+    <form style="width: 88%;" (ngSubmit)="searchBorrows()">
+      <label >Search by State of Return:</label>
+      <select id="searchCategory" name="searchCategory" [(ngModel)]="searchCategory">
+        <option value="returned">Returned</option>
+        <option value="nonreturned">Non Returned</option>
+      </select>
       <button type="submit">Search</button>
       <button type="button" (click)="resetSearch()">Reset</button>
     </form>
-  </div>
+  </div> -->
     <!-- Create Book Form -->
     <div style="margin: 0 auto; width: 95%;">
     <hr>
@@ -15,8 +18,8 @@
     <h2>Create Borrow</h2>
     <label for="createBookISBN">Book ISBN:</label>
     <input type="text" id="createBookISBN" name="createBookISBN" [(ngModel)]="createBookISBN">
-    <label for="createBorrowerId">Borrower ID:</label>
-    <input type="text" id="createBorrowerId" name="createBorrowerId" [(ngModel)]="createBorrowerId">
+    <label for="createBorrowerId">Borrower Email:</label>
+    <input type="text" id="createBorrowerEmail" name="createBorrowerEmail" [(ngModel)]="createBorrowerEmail">
     <label for="createBorrowDate">Date Of Borrow:</label>
     <input type="date" id="createBorrowDate" name="createBorrowDate" [(ngModel)]="createBorrowDate">
     <label for="createReturnedDate">Date Of Return:</label>
@@ -33,8 +36,8 @@
     <input type="hidden" id="updateBorrowId" name="updateBorrowId" [(ngModel)]="updateBorrowId">
     <label for="updateBookISBN">Book ISBN:</label>
     <input type="text" id="updateBookISBN" name="updateBookISBN" [(ngModel)]="updateBookISBN">
-    <label for="updateBorrowerId">Borrower ID:</label>
-    <input type="text" id="updateBorrowerId" name="updateBorrowerId" [(ngModel)]="updateBorrowerId">
+    <label for="updateBorrowerId">Borrower Email:</label>
+    <input type="text" id="updateBorrowerEmail" name="updateBorrowerEmail" [(ngModel)]="updateBorrowerEmail">
     <label for="updateBorrowDate">Date Of Borrow:</label>
     <input type="date" id="updateBorrowDate" name="updateBorrowDate" [(ngModel)]="updateBorrowDate">
     <label for="updateReturnedDate">Date Of Return:</label>
@@ -49,15 +52,21 @@
     <table class="book-table">
         <thead>
           <tr>
+            <th>Book Title</th>
+            <th>Book ISBN</th>
             <th>Date of Borrow</th>
             <th>Date Of Return</th>
+            <th>Borrower Email</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let borrow of borrows">
+            <td>{{ borrow.book.title }}</td>
+            <td>{{ borrow.book.isbn }}</td>
             <td>{{ borrow.borrowDate }}</td>
             <td>{{ borrow.returnDate }}</td>
+            <td>{{ borrow.borrower.email }}</td>
             <td>
               <button (click)="editBorrow(borrow)">Update</button>
               <button (click)="deleteBorrow(borrow.id)">Delete</button>

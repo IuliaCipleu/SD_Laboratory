@@ -1,7 +1,7 @@
 <div class="container">
   <div style="display:flex; justify-content: center;">
-    <form style="width: 88%;" (ngSubmit)="getBorrowerByID()">
-      <label>Search by ID:</label>
+    <form style="width: 88%;" (ngSubmit)="getBorrowerByEmail()">
+      <label>Search by Email:</label>
       <input type="text" id="searchQuery" name="searchQuery" [(ngModel)]="searchQuery">
       <button type="submit">Search</button>
       <button type="button" (click)="resetSearch()">Reset</button>

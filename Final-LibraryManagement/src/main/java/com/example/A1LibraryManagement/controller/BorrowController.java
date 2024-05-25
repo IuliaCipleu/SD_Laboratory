@@ -66,4 +66,18 @@ public class BorrowController {
             return ResponseEntity.badRequest().body(Collections.singletonMap("error", "Error updating borrow: " + e.getMessage()));
         }
     }
+
+    @GetMapping("/returned")
+    public List<BorrowDTO> getReturnedBorrows() {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
+        return borrowService.getReturnedBorrows();
+    }
+
+    @GetMapping("/nonreturned")
+    public List<BorrowDTO> getNonReturnedBorrows() {
+        CheckAuthentication checkAuthentication = new CheckAuthentication();
+        checkAuthentication.checkAuthenticationAll();
+        return borrowService.getNonReturnedBorrows();
+    }
 }

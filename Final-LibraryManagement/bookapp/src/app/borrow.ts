@@ -3,8 +3,12 @@ import { Borrower } from "./borrower";
 
 export interface Borrow {
     id: string;
+    borrower: Borrower,
+    borrowerDTO: Borrower,
+    book: Book;
+    bookDTO: Book;
+    bookISBN: string,
     borrowerID: string,
-    bookISBN: string;
     borrowDate: Date;
     returnDate: Date | null;
   }
